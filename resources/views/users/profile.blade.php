@@ -30,7 +30,7 @@
                         @if($user->profile_photo_path)
                         <img class="rounded-circle" alt="User Image" src="{{asset(Auth::user()->profile_photo_path)}}">
                         @else
-                        <img class="rounded-circle" alt="User Image" src="{{asset('assets/img/profiles/avatar-01.jpg')}}">
+                        <img class="rounded-circle" alt="User Image" src="{{asset('assets/img/user.png')}}">
                         @endif
 
                     </a>

@@ -11,7 +11,7 @@ class Settings extends Model
     protected $fillable=[
         'website_name',
         'website_logo',
-        'favicon',
+        'website_favicon',
         'announcemets_expire_period',
     ];
     protected $hidden=[];

@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
+    public function uploadImage($folder,$image){
+        $image->store('/',$folder);
+        $filename=$image->hashName();
+        $path='assets/img/'.$folder.'/'.$filename;
+        return $path;
+        }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $settings=Settings::find(1);
+        $settings=Settings::get()->first();
         return view('settings',compact('settings'));
     }
 
@@ -62,16 +68,33 @@ class SettingController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $this->validate($request, [
+            'website_name' => 'required',
+            'announcement_expire_period' => 'int|required',
+        ]);
+
+        $settings=Settings::get()->first();
+
+        $settings->website_name=$request->website_name;
+        $settings->announcement_expire_period=$request->announcement_expire_period;
+
+        if($request->has('website_logo')){
+            $path= $this->uploadImage('settings',$request->website_logo);
+            $settings->website_logo=$path;
+        }
+
+        if($request->has('website_favicon')){
+            $path= $this->uploadImage('settings',$request->website_favicon);
+            $settings->website_favicon=$path;
+        }
+
+        $settings->save();
+
+        return view('settings',compact('settings'));
+
     }
 
     /**

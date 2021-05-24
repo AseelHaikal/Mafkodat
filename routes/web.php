@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth','isActive']], function() {
 
     /*Setting */
     Route::get('/settings',[SettingController::class,'index'])->name('settings');
-    Route::get('/settings/update',[SettingController::class,'update'])->name('settings.update');
+    Route::post('/settings/update',[SettingController::class,'update'])->name('settings.update');
 
 
     /* Role */

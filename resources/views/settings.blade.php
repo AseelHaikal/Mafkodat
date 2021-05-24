@@ -39,10 +39,11 @@
                         </div>
                         <div class="card-body">
                             <form action="{{route('settings.update')}}" method="post" enctype="multipart/form-data">
+                                @csrf
 
                                 <div class="form-group">
                                     <label>Website Name</label>
-                                    <input type="text" class="form-control" name="website_name" value="{{$settings->website_name}}" >
+                                    <input type="text" class="form-control" name="website_name" value="{{$settings->website_name}}" required >
                                 </div>
                                 <div class="form-group">
                                     <label>Website Logo</label>
@@ -60,10 +61,10 @@
 
                                 <div class="form-group">
                                     <label>Announcement Expire Period</label>
-                                    <input type="text" class="form-control" name="website_name" value="{{$settings->announcement_expire_period}}" >
+                                    <input type="text" class="form-control" name="announcement_expire_period" value="{{$settings->announcement_expire_period}}" required>
                                     <small class="text-secondary">Period in days</small>
                                 </div>
-                                <button  class="btn btn-primary btn-block" >Save Changes</button>
+                                <button type="submit" class="btn btn-primary btn-block" >Save Changes</button>
                             </form>
                         </div>
                     </div>

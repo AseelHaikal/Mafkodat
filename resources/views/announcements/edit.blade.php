@@ -64,7 +64,7 @@
                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="photo">Photo
                     </label>
                     <div class="col-md-6 col-sm-6">
-                            <input type="file"  class="form-control" name="photo" @if($category=="childrens") {{"required"}}  @endif >
+                            <input type="file"  class="form-control" name="photo" >
                     </div>
                   </div>
                   @if($category=="documents")

@@ -9,6 +9,7 @@ use App\Models\Announcement_Category;
 use App\Models\Announcement_Type;
 use App\Models\Announcement_Status;
 use App\Models\Comment;
+use App\Models\Settings;
 use Illuminate\Support\Facades\Auth;
 
 class AnnouncementController extends Controller
@@ -57,15 +58,16 @@ class AnnouncementController extends Controller
     public function getExpiredAnnouncements($id)
     {
 
-      $categ=Announcement_Category::find($id);
-      $category=$categ->name;
 
+        $categ=Announcement_Category::find($id);
+        $category=$categ->name;
 
         $anns = Announcement::where('category_id',$id)->orderBy('id','DESC')->get();
-        $announcements=array();
 
+        $announcements=array();
+        $settings=Settings::get()->first();
         foreach($anns as $announcement){
-            if($announcement->created_at->diff(now())->d==3)
+            if($announcement->created_at->diff(now())->d==$settings->announcement_expire_period)
                 array_push($announcements,$announcement);}
         return view('announcements.index',compact('announcements','category'));
 
@@ -94,8 +96,8 @@ class AnnouncementController extends Controller
      */
     public function store(Request $request)
     {
-        $details=json_encode($request->except("_token","category_id","user_id","type_id","place","description","photo"));
 
+        $details=json_encode($request->except("_token","category_id","user_id","type_id","place","description","photo"));
 
         $announcement= new Announcement();
         $announcement->user_id=Auth::user()->id;
@@ -167,11 +169,9 @@ class AnnouncementController extends Controller
         $announcement->status_id=$request['status_id'];
         $announcement->details=$details;
 
-        $path="";
         if($request->has('photo')){
             $path= $this->uploadImage('announcements',$request->photo);
             $announcement->photo=$path;
-
         }
 
         $announcement->save();

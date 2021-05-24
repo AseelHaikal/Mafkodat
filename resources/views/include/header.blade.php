@@ -1,13 +1,16 @@
+<?php
+$settings=App\Models\Settings::get()->first();
+?>
 <!-- Header -->
 <div class="header">
 
     <!-- Logo -->
     <div class="header-left">
         <a href="{{route('dashboard')}}" class="logo">
-            <img src="{{asset('assets/img/logo-small.png')}}" alt="Logo">
+            <img src="{{asset($settings->website_logo)}}" alt="Logo">
         </a>
         <a href="{{route('dashboard')}}" class="logo logo-small">
-            <img src="{{asset('assets/img/logo-small.png')}}" alt="Logo" width="30" height="30">
+            <img src="{{asset($settings->website_logo)}}" alt="Logo" width="30" height="30">
         </a>
     </div>
     <!-- /Logo -->
@@ -31,7 +34,7 @@
                     @if(Auth::user()->profile_photo_path)
                     <img class="rounded-circle" src="{{asset(Auth::user()->profile_photo_path)}}" width="31" alt="user image"></span>
                     @else
-                    <img class="rounded-circle" src="{{asset('assets/img/profiles/avatar-01.jpg')}}" width="31" alt="user image"></span>
+                    <img class="rounded-circle" src="{{asset('assets/img/user.png')}}" width="31" alt="user image"></span>
                     @endif
 
             </a>

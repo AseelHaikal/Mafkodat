@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Mafkodat - Login</title>
+    <?php
+    $settings=App\Models\Settings::get()->first();
+    ?>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{$settings->website_name}} - Login</title>
 
-		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{{asset(' assets/img/favicon.png')}}">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset($settings->website_favicon)}}">
 
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
