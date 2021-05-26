@@ -64,6 +64,7 @@
 
         </div>
         <!--Footer-->
+        
         @include('include.footer')
         <!-- /Footer -->
 
