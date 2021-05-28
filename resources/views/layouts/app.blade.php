@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="en">
 
 
@@ -64,7 +64,7 @@
 
         </div>
         <!--Footer-->
-        
+
         @include('include.footer')
         <!-- /Footer -->
 
