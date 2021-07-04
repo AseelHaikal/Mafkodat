@@ -21,7 +21,7 @@
 </div>
 @endif
 <div class="alert alert-success" id="success_msg" style="display:none"><span id="msg">cnzksjdfaskdjh</span></div>
-<div class="row">
+<div class="row"  >
     <div class="col-md-12">
         <div class="profile-header">
             <div class="row align-items-center">
@@ -69,7 +69,7 @@
                                 </h5>
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Name</p>
-                                    <p class="col-sm-10">{{$user->name}}</p>
+                                    <p class="col-sm-10" id="userInfo">{{$user->name}}</p>
                                 </div>
 
                                 <div class="row">
@@ -99,9 +99,10 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
+
                                         <form id="user-profile-update-form" action="{{route('user.profile.update')}}" method="POST" enctype="multipart/form-data">
                                             @csrf
-                                            <div class="alert alert-danger" id="error_msg" style="display:none"><span id="msg"></span></div>
+
                                             <div class="row form-row">
 
                                                 <div class="col-12 col-sm-6">
@@ -114,7 +115,7 @@
                                                     <div class="form-group">
                                                         <label>Name</label>
                                                         <input type="text" class="form-control" name="name" value={{$user->name}}>
-                                                        @error('name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                        <div class="alert-danger" id="nameError"></div>
                                                     </div>
                                                 </div>
 
@@ -122,14 +123,14 @@
                                                     <div class="form-group">
                                                         <label>Email ID</label>
                                                         <input type="email" class="form-control" name="email" value={{$user->email}}>
-                                                        @error('email') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                        <div class="alert-danger" id="emailError"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-sm-12">
                                                     <div class="form-group">
                                                         <label>Mobile</label>
                                                         <input type="text" name="phone" value={{$user->phone}} class="form-control">
-                                                        @error('phone') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                        <div class="alert-danger" id="phoneError"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -252,24 +253,26 @@
         processData:false,
         contentType:false,
         cache:false,
-        beforeSend: function() {
-                            //$('.submitBtn').attr("disabled","disabled");
-                            $('#edit_personal_details').css("opacity", ".8");
-                        },
+        // beforeSend: function() {
+        //                     //$('.submitBtn').attr("disabled","disabled");
+        //                     $('#edit_personal_details').css("opacity", ".8");
+        //                 },
         success: function(data){
             if(data.status==true){
                 $("#edit_personal_details").modal('hide');
-                $('#edit_personal_details').css("opacity", "1");
+                // $('#edit_personal_details').css("opacity", "1");
                 $('#success_msg').show();
 			     document.getElementById("msg").innerHTML =data.msg;
-                 ajax.reload();
-            }
-            else{
-                $('#error_msg').show();
-			document.getElementById("msg").innerHTML = "تاكد من المدخلات";
+                $("#userInfo").load(profile/1);
+
             }
         },
-        error: function(reject){},
+        error: function(response){
+            $('#nameError').text(response.responseJSON.errors.name);
+            $('#emailError').text(response.responseJSON.errors.email);
+            $('#phoneError').text(response.responseJSON.errors.phone);
+
+        },
     });
   });
 

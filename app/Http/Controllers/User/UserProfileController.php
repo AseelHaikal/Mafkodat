@@ -32,7 +32,7 @@ class UserProfileController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,'.Auth::user()->id,
             'phone' => 'required', 'int',
             'city' =>  'string', 'max:255',
-            'country' => 'required', 'string', 'max:255',
+            'country' =>'string', 'max:255',
         ]);
         $user=User::find(Auth::user()->id);
         $path="";
@@ -41,11 +41,11 @@ class UserProfileController extends Controller
             $user->profile_photo_path=$path;
             $user->save();
         }
-        $user->name = $request['name'];
-        $user->email = $request['email'];
-        $user->phone = $request['phone'];
-        $user->country = $request['country'];
-        $user->city = $request['city'];
+        $user->name      = $request['name'];
+        $user->email     = $request['email'];
+        $user->phone     = $request['phone'];
+        $user->country   = $request['country'];
+        $user->city      = $request['city'];
         $user->save();
 
         if($user)
@@ -53,13 +53,6 @@ class UserProfileController extends Controller
             'status'=>true,
             'msg'=>'تم التعديل بنجاح',
         ]);
-        else
-        return response()->json([
-            'status'=>false,
-            'msg'=>'error with creation',
-        ]);
-        // return redirect()->back()
-        // ->with('success','Profile Updated successfully');
     }
 
     public function changePassword(Request $request){

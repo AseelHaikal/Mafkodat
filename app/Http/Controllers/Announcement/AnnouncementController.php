@@ -15,12 +15,14 @@ use Illuminate\Support\Facades\Auth;
 class AnnouncementController extends Controller
 {
 
-    public function uploadImage($folder,$image){
-        $image->store('/',$folder);
-        $filename=$image->hashName();
-        $path='assets/img/'.$folder.'/'.$filename;
-        return $path;
-        }
+        public function uploadImage($folder,$image){
+
+            $image->store('/',$folder);
+            $filename=$image->hashName();
+            $path='assets/img/'.$folder.'/'.$filename;
+            return $path;
+
+            }
     /**
      * Display a listing of the resource.
      *
